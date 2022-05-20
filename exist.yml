@@ -1,0 +1,20 @@
+# docker-compose.yml
+version: "3.6"
+services:
+  existdb:
+    image: existdb/existdb:latest
+    ports: 
+      - 8081:8080
+      - 8444:8443
+    environment: 
+      - EXIST_PASSWORD_FILE=/Users/carlos/code/exist-db/existdb_passwd
+    restart: unless-stopped
+    secrets:
+      - source: existdb_passwd
+    volumes:
+      - existdb_data:/Users/carlos/code/exist-db/data
+secrets:
+  existdb_passwd:
+    file: /Users/carlos/code/exist-db/existdb_passwd
+volumes:
+  existdb_data:
